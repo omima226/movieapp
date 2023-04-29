@@ -1,0 +1,93 @@
+<div class="login position-absolute w-100 h-100 top-0 start-0  ">
+  <div class="layer-login position-absolute w-100 h-100 start-0 top-0 bg-black bg-opacity-75">
+  </div>
+  <div class="container h-100  pt-5 ">
+
+    <div class="row h-100 align-items-center">
+      <div class="col-md-6 mx-auto login-box bg-dark bg-opacity-75">
+
+        <form class="w-75 mx-auto " [formGroup]="loginForm">
+          <h1 class="fw-bolder text-center text-info">Login Now</h1>
+          <div *ngIf="err" class="text-err">
+            <h1 class="h6 pt-3" >{{errMsg}}</h1>
+          </div>
+          <label for="email" class="my-3 fs-4 text-info">
+            Email :
+          </label>
+          <input type="email" id="email" class="form-control" placeholder="Enter Your Email" formControlName="email">
+          <div class="text-err" *ngIf="loginForm.get('email')?.errors != null && loginForm.get('email')?.dirty">
+            <p *ngIf="loginForm.get('email')?.getError('required')">Email is Required</p>
+            <p *ngIf="loginForm.get('email')?.getError('email')">Enter Valid Email</p>
+          </div>
+          <label for="password" class="my-3 fs-4 text-info">
+            Password :
+          </label>
+          <input type="password" id="password" class="form-control" placeholder="Enter Your password" formControlName="password">
+          <div class="text-err" *ngIf="loginForm.get('password')?.errors != null && loginForm.get('password')?.dirty">
+            <p *ngIf="loginForm.get('password')?.getError('required')">password is Required</p>
+            <p *ngIf="loginForm.get('password')?.getError('pattern')">Minimum eight characters, at least one letter and one number</p>
+          </div>
+          <div class="d-flex my-3 justify-content-between align-items-center flex-wrap">
+            <div class=" flex justify-content-center ">
+              <p-button (click)="showDialog()" styleClass="p-button-warning" label="Forget Password">
+                <i class="fas fa-lock me-2 text-danger"></i>
+              </p-button>
+              <p-dialog header="Forget Password" class="bg-danger" [(visible)]="visible" [modal]="true" [draggable]="false" [resizable]="false">
+                  <div class="m-0 ">
+                    <form [formGroup]="forgetPass" *ngIf="emailForm" (ngSubmit)="forgetPassword()">
+                      <div>
+                        <p class="text-err fw-bold"*ngIf="forgetErr">{{errForget}}</p>
+                        <p class="text-success fw-bold" *ngIf="!forgetErr">{{doneForget}}</p>
+                      </div>
+                    <label for="email">Your Email :</label>
+                    <input type="email" id="email" class="my-2 form-control" placeholder="Enter Your Email" formControlName="email" >
+                    <div class="text-err" *ngIf="forgetPass.get('email')?.errors != null && forgetPass.get('email')?.dirty">
+                      <p *ngIf="forgetPass.get('email')?.getError('required')">Email is Required</p>
+                      <p *ngIf="forgetPass.get('email')?.getError('email')">Enter Valid Email</p>
+                    </div>
+                    <button [disabled]="forgetPass.invalid" class="btn btn-outline-primary d-block ms-auto" type="submit"><i class="fa-solid fa-circle-notch fa-spin me-1" *ngIf="forgetLoading"></i>confrim</button>
+                    </form>
+                    <form *ngIf="codeForm" [formGroup]="verifyForm" (ngSubmit)="verifyCode()">
+                        <div>
+                          <p class="text-err fw-bold"*ngIf="codeErr">{{errCode}}</p>
+                          <p class="text-success fw-bold" *ngIf="!codeErr">{{doneCode}}</p>
+                        </div>
+                      <label for="code">Verify Code :</label>
+                      <input type="text" id="code" class="my-2 form-control" placeholder="Enter Your code" formControlName="resetCode" >
+                      <div class="text-err" *ngIf="verifyForm.get('resetCode')?.errors != null && verifyForm.get('resetCode')?.dirty">
+                        <p *ngIf="verifyForm.get('resetCode')?.getError('required')">Code is Required</p>
+                        <p *ngIf="verifyForm.get('resetCode')?.getError('resetCode')">Code Must be 6 Numbers</p>
+                      </div>
+                      <button [disabled]="verifyForm.invalid" class="btn btn-outline-primary d-block ms-auto" type="submit"><i class="fa-solid fa-circle-notch fa-spin me-1" *ngIf="codeLoading"></i>confrim</button>
+                    </form>
+                    <form *ngIf="NewPass" [formGroup]="resetForm" (ngSubmit)="newPassord()">
+                    <div>
+                      <p class="text-success fw-bold" *ngIf="newErr">{{doneNew}}</p>
+                    </div>
+                    <label for="email">Your Email :</label>
+                    <input type="email" id="email" class="my-2 form-control" placeholder="Enter Your Email" formControlName="email" >
+                    <div class="text-err" *ngIf="resetForm.get('email')?.errors != null && resetForm.get('email')?.dirty">
+                      <p *ngIf="resetForm.get('email')?.getError('required')">Email is Required</p>
+                      <p *ngIf="resetForm.get('email')?.getError('email')">Enter Valid Email</p>
+                    </div>
+                    <label for="password" class="my-3">
+                      New Password :
+                    </label>
+                    <input type="password" id="password" class="form-control" placeholder="Enter Your New Password" formControlName="newPassword">
+                    <div class="text-err" *ngIf="resetForm.get('newPassword')?.errors != null && resetForm.get('newPassword')?.dirty">
+                      <p *ngIf="resetForm.get('newPassword')?.getError('required')">password is Required</p>
+                      <p *ngIf="resetForm.get('newPassword')?.getError('pattern')">Minimum eight characters, at least one letter and one number</p>
+                    </div>
+                    <button [disabled]="resetForm.invalid" class="btn btn-outline-primary d-block ms-auto my-2" type="submit"><i class="fa-solid fa-circle-notch fa-spin me-1" *ngIf="newLoading"></i>confrim</button>
+                    </form>
+                  </div>
+              </p-dialog>
+          </div>
+          <button class="btn btn-main text-white" [disabled]="loginForm.invalid"  type="submit" (click)="login(loginForm)"><i class="fa-solid fa-circle-notch fa-spin me-1" *ngIf="isLoading"></i>login</button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>

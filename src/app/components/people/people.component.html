@@ -1,0 +1,21 @@
+<div class="container position-relative vh-100">
+  <div class="loading position-fixed d-flex justify-content-center align-items-center bg-dark top-0 start-0 w-100 h-100" *ngIf="isLoading">
+      <span class="loader"></span>
+  </div>
+  <div class="row gy-3" >
+      <div class="col-md-2 cursor-pointer" *ngFor="let movie of movies"  [routerLink]="['/actorDetails' , movie.id , movie.media_type ]">
+          <div class="position-relative">
+              <div class="poster position-relative ">
+                  <div class="layer position-absolute  bg-dark w-100 h-100 top-0 start-0 d-flex justify-content-center align-items-center">
+                      <p class="fw-bolder text-info">Show Details</p>
+                  </div>
+                  <img [src]="posterPath + movie.profile_path " class="w-100" alt="">
+              </div>
+              <div class="rating position-absolute top-0 end-0 bg-rating d-flex justify-content-center align-items-center">
+                  <p class="fs-5 text-white pt-2 px-2">{{movie.popularity?.toFixed(1)}}</p>
+              </div>
+          </div>
+          <h2 class="h5 fw-lighter text-white">{{movie.name?.split(' ').slice(0,4).join(' ')}}</h2>
+      </div>
+  </div>
+</div>

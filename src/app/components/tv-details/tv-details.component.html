@@ -1,0 +1,82 @@
+<div class="container vh-100">
+  <div class="loading position-fixed d-flex justify-content-center align-items-center bg-dark top-0 start-0 w-100 h-100" *ngIf="isLoading">
+      <span class="loader"></span>
+  </div>
+  <div class="player position-fixed top-0  start-0 w-100 vh-100 z-1" *ngIf="!isLoading"></div>
+  <div class="layer55 position-absolute w-100 h-100 top-0 start-0 " [style.background-image]="bgLayer">
+
+  </div>
+  <div class="row gy-3 align-items-start position-relative cont" >
+      <div class="col-md-5">
+          <div class="image ">
+              <img [src]="posterPath + movieDetails.poster_path !== 'https://image.tmdb.org/t/p/w500null'? posterPath + movieDetails.poster_path : 'assets/images/wwemzKWzjKYJFfCeiB57q3r4Bcm.svg'" class="w-75 d-block mx-auto" height="400" alt="">
+          </div>
+      </div>
+      <div class="col-md-7">
+          <h1 class="text-center display-1">{{movieDetails.original_name}}</h1>
+          <!-- <img [src]="posterPath + movieDetails.backdrop_path" class="w-50 my-3 d-block mx-auto" height="200" alt=""> -->
+
+          <p class="text-muted text-center">{{movieDetails.overview}}</p>
+          <br>
+          <div class="d-flex justify-content-between flex-wrap gap-2">
+            <div class="card flex justify-content-center bg-transparent">
+              <form [formGroup]="formGroup">
+                  <p-rating formControlName="value"></p-rating>
+              </form>
+          </div>
+            <a [href]="movieDetails.homepage" target="_blank" class="btn btn-outline-info text-white">Tv Source</a>
+          </div>
+          <br>
+          <div class="d-flex flex-wrap  justify-content-between gap-2">
+          <p class="" *ngIf="movieDetails.vote_average != 0">vote average : {{movieDetails.vote_average?.toFixed(2)}} </p>
+          <p class="" *ngIf="movieDetails.vote_count != 0">vote count : {{movieDetails.vote_count}} </p>
+          <p class="" *ngIf="movieDetails.last_air_date"> last air date : {{movieDetails.last_air_date}} </p>
+          <p class="" *ngIf="movieDetails.original_language">original language : {{movieDetails.original_language }} </p>
+          </div>
+
+          <div *ngIf="movieDetails.genres?.length > 0">
+            <h2>Movie Genres</h2>
+            <span *ngFor="let item of movieDetails.genres" class="badge text-bg-success mx-3 my-2 fs-5">{{item.name}}</span>
+          </div>
+      </div>
+      <div class="col-12 my-3">
+        <div *ngIf="movieDetails.production_companies?.length > 0">
+          <h1>Movie Production Companies :</h1>
+          <div class="d-flex flex-wrap justify-content-center gap-5">
+            <div *ngFor="let item of movieDetails.production_companies" class="mx-3">
+              <p class=" fs-6 text-center text-info">{{item.name}}</p>
+              <img [src]="posterPath + item.logo_path !== 'https://image.tmdb.org/t/p/w500null' ? posterPath + item.logo_path : 'assets/images/proLogo.png'" class="d-block mx-auto" width="200" height="150" alt="">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12" *ngIf="similiarMovies.length > 0">
+        <p class="fs-2">Similar :</p>
+        <div class="cursor-pointer" >
+          <owl-carousel-o [options]="customOptions">
+
+            <ng-container *ngFor="let similar of similiarMovies">
+              <ng-template carouselSlide [id]="similar.id">
+                <img [src]="posterPath + similar.backdrop_path !== 'https://image.tmdb.org/t/p/w500null'? posterPath + similar.backdrop_path : 'assets/images/wwemzKWzjKYJFfCeiB57q3r4Bcm.svg'" [alt]="similar.title" [title]="similar.title" height="200" [routerLink]="['/movieDetails' , similar.id , 'movie' ]">
+              </ng-template>
+            </ng-container>
+
+          </owl-carousel-o>
+        </div>
+      </div>
+      <div class="col-12" *ngIf="movieDetails.number_of_seasons > 3">
+        <p class="fs-2">Seasons :</p>
+        <div class="cursor-pointer" >
+          <owl-carousel-o [options]="customOptions">
+
+            <ng-container *ngFor="let season of movieDetails.seasons">
+              <ng-template carouselSlide [id]="season.id">
+                <img [src]="posterPath + season.poster_path !== 'https://image.tmdb.org/t/p/w500null'? posterPath + season.poster_path : 'assets/images/wwemzKWzjKYJFfCeiB57q3r4Bcm.svg'" [alt]="season.name" [title]="season.name" height="200" >
+              </ng-template>
+            </ng-container>
+
+          </owl-carousel-o>
+        </div>
+      </div>
+  </div>
+</div>

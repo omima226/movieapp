@@ -1,0 +1,25 @@
+.layer55
+{
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100% 100%;
+  opacity: 0.5;
+  /* margin-top: 80px; */
+
+}
+
+.player
+{
+  z-index: 1;
+
+}
+.player
+{
+  /* margin-top: 80px;
+  padding-top: 20px; */
+  background: linear-gradient(rgba(6, 19, 36, 0.9),#040c17);
+}
+
+.cont{
+  z-index: 2;
+}

@@ -1,0 +1,76 @@
+<div class="container vh-100">
+  <div class="loading position-fixed d-flex justify-content-center align-items-center bg-dark top-0 start-0 w-100 h-100" *ngIf="isLoading">
+      <span class="loader"></span>
+  </div>
+  <div class="player position-fixed top-0  start-0 w-100 vh-100 z-1" *ngIf="!isLoading"></div>
+  <div class="layer55 position-absolute w-100 h-100 top-0 start-0 " [style.background-image]="bgLayer">
+
+  </div>
+  <div class="row gy-3 align-items-start position-relative cont" >
+      <div class="col-md-5">
+          <div class="image ">
+              <img [src]="posterPath + movieDetails.profile_path !== 'https://image.tmdb.org/t/p/w500null'? posterPath + movieDetails.profile_path : 'assets/images/wwemzKWzjKYJFfCeiB57q3r4Bcm.svg'" class="w-75 d-block mx-auto" height="400" alt="">
+          </div>
+      </div>
+      <div class="col-md-7">
+          <h1 class="text-center display-1">{{movieDetails.name}}</h1>
+          <!-- <img [src]="posterPath + movieDetails.profile_path" class="w-25 my-3 d-block mx-auto" height="200" alt=""> -->
+
+          <p class="text-muted text-center">{{movieDetails?.biography?.slice(0,500)}}...</p>
+          <br>
+          <div class="d-flex justify-content-between flex-wrap">
+            <div class="card flex justify-content-center bg-transparent">
+              <form [formGroup]="formGroup">
+                  <p-rating formControlName="value"></p-rating>
+              </form>
+          </div>
+            <a [href]="movieDetails.homepage" *ngIf="movieDetails.homepage != null || undefined" target="_blank" class="btn btn-outline-info text-white">About</a>
+          </div>
+          <br>
+          <div class="d-flex flex-wrap">
+          <p class="" *ngIf="movieDetails.birthday">birthday : {{movieDetails.birthday}} </p>
+          <p class="" *ngIf="movieDetails.known_for_department != 0">known for department : {{movieDetails.known_for_department}} </p>
+          <p class="" *ngIf="movieDetails.place_of_birth"> place of birth : {{movieDetails.place_of_birth}} </p>
+          <p class="" *ngIf="movieDetails.original_language">original language : {{movieDetails.original_language }} </p>
+          <p class="" *ngIf="movieDetails.popularity">popularity : <span class="badge rounded-pill text-bg-primary fs-6">{{movieDetails.popularity.toFixed(2) }}</span> </p>
+          </div>
+
+      </div>
+      <div class="col-12 my-3">
+        <div *ngIf="movieDetails.also_known_as?.length > 0">
+          <h2>Also known as :</h2>
+          <div class="d-flex justify-content-between flex-wrap gap-3">
+            <span *ngFor="let item of movieDetails.also_known_as" class="badge text-bg-success fs-5">{{item}}</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-12" *ngIf="similiarMovies.length > 0">
+        <p class="fs-2">Similar :</p>
+        <div class="cursor-pointer" >
+          <owl-carousel-o [options]="customOptions">
+
+            <ng-container *ngFor="let similar of similiarMovies">
+              <ng-template carouselSlide [id]="similar.id">
+                <img [src]="posterPath + similar.backdrop_path !== 'https://image.tmdb.org/t/p/w500null'? posterPath + similar.backdrop_path : 'assets/images/wwemzKWzjKYJFfCeiB57q3r4Bcm.svg'" [alt]="similar.title" [title]="similar.title" height="200" [routerLink]="['/movieDetails' , similar.id , 'movie' ]">
+              </ng-template>
+            </ng-container>
+
+          </owl-carousel-o>
+        </div>
+      </div>
+      <div class="col-12" *ngIf="movieDetails.number_of_seasons > 3">
+        <p class="fs-2">Seasons :</p>
+        <div class="cursor-pointer" >
+          <owl-carousel-o [options]="customOptions">
+
+            <ng-container *ngFor="let season of movieDetails.seasons">
+              <ng-template carouselSlide [id]="season.id">
+                <img [src]="posterPath + season.poster_path !== 'https://image.tmdb.org/t/p/w500null'? posterPath + season.poster_path : 'assets/images/wwemzKWzjKYJFfCeiB57q3r4Bcm.svg'" [alt]="season.name" [title]="season.name" height="200" >
+              </ng-template>
+            </ng-container>
+
+          </owl-carousel-o>
+        </div>
+      </div>
+  </div>
+</div>

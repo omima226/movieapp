@@ -1,0 +1,171 @@
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css";
+@import "primeicons/primeicons.css";
+
+
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap');
+
+
+
+:root{
+--main-color: #131722;
+--active-color: cornflowerblue;
+--rating-color: rgb(79, 79, 215);
+}
+
+body{
+background-color: var(--main-color);
+font-family: 'Ubuntu', sans-serif !important;
+}
+.text-main{
+color: var(--main-color)
+}
+.bg-main{
+background-color: var(--main-color)
+}
+
+.cursor-pointer{
+cursor: pointer;
+}
+.active{
+color: var(--active-color) !important;
+}
+.btn-main{
+background-color: var(--active-color);
+}
+.btn-main:hover{
+background-color: var(--active-color);
+}
+.bg-rating{
+background-color: var(--rating-color);
+}
+.text-err{
+color:red;
+}
+.layer{
+  opacity: 0;
+  transition:  1s opacity;
+}
+
+.poster:hover .layer{
+  opacity: 0.5;
+}
+.poster p {
+
+  transform:  translateY(-50px);
+  transition: 1s transform;
+}
+.poster:hover p {
+  transform: translateY(0);
+}
+/******************************************************/
+/** start loader*/
+.loading{
+z-index: 11;
+}
+.loader {
+width: 48px;
+height: 48px;
+position: relative;
+}
+.loader::before , .loader::after{
+content: '';
+position: absolute;
+left: 50%;
+top: 50%;
+transform: translate(-50% , -50%);
+width: 48em;
+height: 48em;
+background-image:
+  radial-gradient(circle 10px, #FFF 100%, transparent 0),
+  radial-gradient(circle 10px, #FFF 100%, transparent 0),
+  radial-gradient(circle 10px, #FFF 100%, transparent 0),
+  radial-gradient(circle 10px, #FFF 100%, transparent 0),
+  radial-gradient(circle 10px, #FFF 100%, transparent 0),
+  radial-gradient(circle 10px, #FFF 100%, transparent 0),
+  radial-gradient(circle 10px, #FFF 100%, transparent 0),
+  radial-gradient(circle 10px, #FFF 100%, transparent 0);
+background-position: 0em -18em, 0em 18em, 18em 0em, -18em 0em,13em -13em, -13em -13em, 13em 13em, -13em 13em;
+background-repeat: no-repeat;
+font-size: 0.5px;
+border-radius: 50%;
+animation: blast 1s ease-in infinite;
+}
+.loader::after {
+font-size: 1px;
+background: #fff;
+animation: bounce 1s ease-in infinite;
+}
+
+@keyframes bounce {
+0% , 100%{ font-size: 0.75px }
+50% { font-size: 1.5px }
+}
+@keyframes blast {
+0% , 40% {
+  font-size: 0.5px;
+}
+70% {
+  opacity: 1;
+  font-size: 4px;
+}
+100% {
+  font-size: 6px;
+  opacity: 0;
+}
+}
+/** End loader*/
+
+
+
+.p-button.p-button-warning, .p-buttonset.p-button-warning > .p-button, .p-splitbutton.p-button-warning > .p-button
+{
+  background:transparent !important ;
+  box-shadow: none ;
+  color: #0275d8;
+  /* text-decoration: underline; */
+  border: none;
+}
+
+
+.p-button.p-button-warning:enabled:hover{
+  color: #fff;
+}
+.p-button.p-button-warning:enabled:focus {
+  box-shadow: none ;
+}
+.p-dialog .p-dialog-header
+{
+  background-color: #0275d8;
+  color: #fff !important;
+}
+.p-dialog{
+  width: 50vw;
+}
+
+@media screen  and (max-width : 600px){
+  .p-dialog{
+    width: 100vw;
+  }
+}
+.navbar-toggler{
+  box-shadow: none !important;
+}
+
+.dropdown-item.active
+{
+  background-color: transparent;
+}
+body::-webkit-scrollbar {
+  width: 1em;
+}
+
+body::-webkit-scrollbar-track {
+  box-shadow: none;
+  background-color: #010a11;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: rgb(25, 17, 70);
+  border-radius: 50px;
+}

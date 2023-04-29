@@ -1,0 +1,15 @@
+.login{
+  background-image: url(../../../assets/images/authBackground.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  /* z-index: 1; */
+
+}
+
+.login-box{
+  position: relative;
+  z-index: 1;
+  padding-block: 50px;
+}
+
